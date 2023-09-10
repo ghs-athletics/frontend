@@ -1,0 +1,53 @@
+name: build_frontend
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    # os doesn't matter
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+        #- macos-latest
+        #- ubuntu-latest
+        - windows-latest
+
+    steps:
+    # setup everything
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 'latest'
+        cache: 'npm'
+
+
+    # actual build commands
+    - run: cd frontend
+    - run: npm install
+    - run: npm run build
+    - run: cd ..
+
+
+    # github has not too many outages, but enough where this is probably a good idea
+    - name: Check GitHub Pages status
+      uses: crazy-max/ghaction-github-status@v3
+      with:
+        pages_threshold: major_outage
+
+    # the build is split into client and server
+    # upload ./frontend/dist/client for now, but there will probably need to be something to include
+    # ./frontend/dist/server
+    - name: Deploy to GitHub Pages
+      uses: crazy-max/ghaction-github-pages@v4
+      with:
+        target_branch: gh-pages
+        build_dir: ./frontend/dist/client
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
