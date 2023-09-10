@@ -21,19 +21,18 @@ jobs:
     # setup everything
     - uses: actions/checkout@v4
 
+    # the relevant code is in the `./frontend` directory
+    - run: cd frontend
+
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
         node-version: 'latest'
         cache: 'npm'
 
-
     # actual build commands
-    - run: cd frontend
     - run: npm install
     - run: npm run build
-    - run: cd ..
-
 
     # github has not too many outages, but enough where this is probably a good idea
     - name: Check GitHub Pages status
@@ -48,6 +47,6 @@ jobs:
       uses: crazy-max/ghaction-github-pages@v4
       with:
         target_branch: gh-pages
-        build_dir: ./frontend/dist/client
+        build_dir: ./dist/client
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
