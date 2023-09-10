@@ -22,9 +22,7 @@ npm run build
 
 Note: Builds are not commited by default.
 
-A github action will automatically build and push to github pages for you (TODO)
-
-https://github.com/icecream17/solver/blob/main/.github/workflows/build.yml#L36-L42
+A github action will automatically build and push to github pages for you (see <https://github.com/ghs-athletics/main/actions> for this process in action)
 
 ## file structure
 
