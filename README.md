@@ -32,8 +32,8 @@ so here's an incomplete explanation since I also don't completely understand eve
     + `/pages/index` is a page
 + `/public` is similar to `/pages/assets` or something, idk, I will probably consolidate these two folders to make it less confusing
 + `/renderer` is presumably server side rendering (if only static rendering is needed, presumably this will go away. At this early stage it should be easy to switch)
+    + `_default.page.server.tsx` is the **root** page
 + `.gitignore`: files ignored automatically when committing
-+ `index.html` corresponds to `/pages/index`
 + `README.md` is what you're reading right now
 + the rest of the files are just configuration, or other metadata that can be ignored, usually
 

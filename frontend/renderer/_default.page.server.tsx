@@ -22,20 +22,23 @@ async function render(pageContext) {
 	const desc =
 		(documentProps && documentProps.description) || 'Preact app with Vite and vite-plugin-ssr';
 
-	const documentHtml = escapeInject`<!DOCTYPE html>
-		<html lang="en">
-		<head>
-			<meta charset="UTF-8" />
-			<link rel="icon" type="image/svg+xml" href="/vite.svg" />
-			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-			<meta name="color-scheme" content="light dark" />
-			<meta name="description" content="${desc}" />
-			<title>${title}</title>
-		</head>
-		<body>
-			<div id="app">${dangerouslySkipEscape(pageHtml)}</div>
-		</body>
-		</html>`;
+	// Manually dedent to avoid unnecessary indentation in the output :/
+	const documentHtml = escapeInject`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<base href="https://ghs-athletics.github.io/main/" />
+	<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="color-scheme" content="light dark" />
+	<meta name="description" content="${desc}" />
+	<title>${title}</title>
+</head>
+<body>
+	<div id="app">${dangerouslySkipEscape(pageHtml)}</div>
+</body>
+</html>`;
 
 	return {
 		documentHtml,
